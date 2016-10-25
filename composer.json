@@ -1,0 +1,22 @@
+{
+	"minimum-stability": "dev",
+	"config": {
+		"secure-http": false
+	},
+	"require": {
+		"lordmx/amazon-mws": "*",
+		"codeception/codeception": "^2.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"": "src/",
+			"tests\\": "tests/"
+		}
+	},
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/lordmx/amazon-mws"
+		}
+	]
+}
