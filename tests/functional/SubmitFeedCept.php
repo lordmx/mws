@@ -12,9 +12,10 @@ $merchantId = '<Your merchant ID here>';
 $service = new \services\Amazon($keyId, $secret, $merchantId);
 $service->setAppName($appName);
 $service->setAppVersion($appVersion);
+$service->setMarketplaceIds(array('1', '2'));
 
 $data = [
-    19719 => 0,
+    19719 => 3,
 ];
 
 $result = $service->submitFeed($data);

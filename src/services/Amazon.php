@@ -65,6 +65,13 @@ class Amazon
     private $appVersion;
 
     /**
+     * Идентификаторы marketplace
+     *
+     * @var string[]
+     */
+    private $marketplaceIds = array();
+
+    /**
      * Максимальное количество попыток запроса (в случае ошибок)
      *
      * @var int
@@ -158,6 +165,16 @@ class Amazon
     }
 
     /**
+     * @param \string[] $marketplaceIds
+     * @return Amazon
+     */
+    public function setMarketplaceIds($marketplaceIds)
+    {
+        $this->marketplaceIds = $marketplaceIds;
+        return $this;
+    }
+
+    /**
      * @param string $serviceUrl
      * @return Amazon
      */
@@ -207,12 +224,12 @@ class Amazon
             throw new IntegrityException('API endpoint was not specified');
         }
 
-        return [
+        return array(
             'ServiceURL' => $this->serviceUrl,
             'ProxyHost' => $this->proxyHost,
             'ProxyPort' => $this->proxyPort ?: -1,
             'MaxErrorRetry' => $this->maxRetryCount,
-        ];
+        );
     }
 
     /**
@@ -220,6 +237,6 @@ class Amazon
      */
     private function getMarketplaceIds()
     {
-        return ['Id' => [$this->merchantId]];
+        return ['Id' => (array)$this->marketplaceIds];
     }
 }

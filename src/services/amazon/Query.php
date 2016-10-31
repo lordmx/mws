@@ -34,7 +34,7 @@ class Query
     /**
      * @var array
      */
-    private $messages = [];
+    private $messages = array();
 
     /**
      * @var string
@@ -63,7 +63,7 @@ class Query
      */
     public static function createInventory($merchantId, $docVersion = '1.01')
     {
-        $query = new self($docVersion, $merchantId);
+        $query = new self($merchantId, $docVersion);
         $query->setMessageType(self::MESSAGE_TYPE_INVENTORY);
 
         return $query;
@@ -84,14 +84,14 @@ class Query
      */
     public function inventory($sku, $quantity)
     {
-        $this->messages[] = [
+        $this->messages[] = array(
             self::PART_TYPE => self::OPERATION_TYPE_UPDATE,
             self::PART_ID => self::$messageCount,
-            self::PART_ARGS => [
+            self::PART_ARGS => array(
                 'SKU' => $sku,
                 'Quantity' => $quantity,
-            ],
-        ];
+            ),
+        );
 
         self::$messageCount++;
 
@@ -107,11 +107,11 @@ class Query
 
         $out = strtr(
             $out,
-            [
+            array(
                 '{header}' => $this->renderHeader(),
                 '{messageType}' => $this->renderMessageType(),
                 '{messages}' => $this->renderMessages(),
-            ]
+            )
         );
 
         return $out;
@@ -139,7 +139,7 @@ class Query
         return
             '<Header>' .
                 '<DocumentVersion>' . $this->docVersion . '</DocumentVersion>' .
-                '<<MerchantIdentifier>' . $this->merchantId . '</MerchantIdentifier>' .
+                '<MerchantIdentifier>' . $this->merchantId . '</MerchantIdentifier>' .
             '</Header>';
 
     }
@@ -157,7 +157,7 @@ class Query
      */
     private function renderMessages()
     {
-        $messages = [];
+        $messages = array();
 
         foreach ($this->messages as $message) {
             $out = $this->renderMessageHeader($message);
