@@ -119,7 +119,7 @@ class Amazon
         $request->setFeedType('_POST_FLAT_FILE_INVLOADER_DATA_');
         $request->setPurgeAndReplace(false);
         $request->setFeedContent($feedHandle);
-        $request->setContentMd5(base64_encode(md5($xml)));
+        $request->setContentMd5(base64_encode(md5(stream_get_contents($feedHandle), true)));
 
         try {
             $response = $this->client->submitFeed($request);
@@ -237,6 +237,6 @@ class Amazon
      */
     private function getMarketplaceIds()
     {
-        return ['Id' => (array)$this->marketplaceIds];
+        return array('Id' => (array)$this->marketplaceIds);
     }
 }
