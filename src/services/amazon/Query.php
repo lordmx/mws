@@ -125,9 +125,9 @@ class Query
         return
             '<?xml version="1.0" encoding="utf-8" ?>' .
             '<AmazonEnvelope xmlns:xsi="' . self::XSI_URL . '" xsi:noNamespaceSchemaLocation="' . self::XSI_LOC . '">' .
-                '{header}' .
-                '{messageType}' .
-                '{messages}' .
+            '{header}' .
+            '{messageType}' .
+            '{messages}' .
             '</AmazonEnvelope>';
     }
 
@@ -138,8 +138,8 @@ class Query
     {
         return
             '<Header>' .
-                '<DocumentVersion>' . $this->docVersion . '</DocumentVersion>' .
-                '<MerchantIdentifier>' . $this->merchantId . '</MerchantIdentifier>' .
+            '<DocumentVersion>' . $this->docVersion . '</DocumentVersion>' .
+            '<MerchantIdentifier>' . $this->merchantId . '</MerchantIdentifier>' .
             '</Header>';
 
     }
@@ -177,9 +177,9 @@ class Query
     {
         return
             '<Message>' .
-                '<MessageID>' . $message[self::PART_ID] . '</MessageID>' .
-                '<OperationType>' . $message[self::PART_TYPE] . '</OperationType>' .
-                '{message}' .
+            '<MessageID>' . $message[self::PART_ID] . '</MessageID>' .
+            '<OperationType>' . $message[self::PART_TYPE] . '</OperationType>' .
+            '{message}' .
             '</Message>';
     }
 
@@ -191,8 +191,8 @@ class Query
     {
         return
             '<Inventory>' .
-                '<SKU>' . $message[self::PART_ARGS]['SKU'] . '</SKU>' .
-                '<Quantity>' . $message[self::PART_ARGS]['Quantity'] . '</Quantity>' .
+            '<SKU>' . $message[self::PART_ARGS]['SKU'] . '</SKU>' .
+            '<Quantity>' . $message[self::PART_ARGS]['Quantity'] . '</Quantity>' .
             '</Inventory>';
     }
 }

@@ -10,6 +10,7 @@ use services\amazon\Query;
  * Сервис для работы с Amazon MWS
  *
  * @author Ilya Kolesnikov <fatumm@gmail.com>
+ * @package services
  */
 class Amazon
 {
@@ -109,14 +110,14 @@ class Amazon
 
         $xml = $query->render();
 
-        $feedHandle = @fopen('php://temp', 'rw+');
+        $feedHandle = @fopen('php://memory', 'rw+');
         fwrite($feedHandle, $xml);
         rewind($feedHandle);
 
         $request = new \MarketplaceWebService_Model_SubmitFeedRequest();
         $request->setMerchant($this->merchantId);
         $request->setMarketplaceIdList($this->getMarketplaceIds());
-        $request->setFeedType('_POST_FLAT_FILE_INVLOADER_DATA_');
+        $request->setFeedType('_POST_INVENTORY_AVAILABILITY_DATA_');
         $request->setPurgeAndReplace(false);
         $request->setFeedContent($feedHandle);
         $request->setContentMd5(base64_encode(md5(stream_get_contents($feedHandle), true)));
